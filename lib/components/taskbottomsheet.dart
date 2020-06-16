@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:todoey_flutter/data/todolist.dart';
 
-class TaskBottomSheet extends StatelessWidget {
+String taskTitle;
+
+class TaskBottomSheet extends StatefulWidget {
+  @override
+  _TaskBottomSheetState createState() => _TaskBottomSheetState();
+}
+
+class _TaskBottomSheetState extends State<TaskBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,6 +36,9 @@ class TaskBottomSheet extends StatelessWidget {
                 borderSide: BorderSide(color: Colors.blueGrey),
               ),
             ),
+            onChanged: (value) {
+              taskTitle = value;
+            },
           ),
           SizedBox(height: 25),
           ButtonTheme(
@@ -35,7 +46,11 @@ class TaskBottomSheet extends StatelessWidget {
             child: FlatButton(
               color: Colors.blueAccent,
               padding: EdgeInsets.all(20),
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  TodoList.addTask(taskTitle);
+                });
+              },
               child: Text(
                 'Add',
                 style: TextStyle(
