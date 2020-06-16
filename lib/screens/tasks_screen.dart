@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todoey_flutter/components/taskbottomsheet.dart';
 import 'package:todoey_flutter/components/todo_listview.dart';
-import 'package:todoey_flutter/data/todolist.dart';
+import 'package:todoey_flutter/models/task.dart';
 
 class TasksScreen extends StatefulWidget {
   @override
@@ -9,6 +9,14 @@ class TasksScreen extends StatefulWidget {
 }
 
 class _TasksScreenState extends State<TasksScreen> {
+  List<Task> todoList = [];
+
+  void addTask(String titleText) {
+    setState(() {
+      todoList.add(Task(title: titleText, isChecked: false));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +25,9 @@ class _TasksScreenState extends State<TasksScreen> {
           onPressed: () {
             showModalBottomSheet(
               context: context,
-              builder: (context) => TaskBottomSheet(),
+              builder: (context) => TaskBottomSheet(
+                callback: addTask,
+              ),
             );
           },
           backgroundColor: Colors.blueAccent,
@@ -86,7 +96,7 @@ class _TasksScreenState extends State<TasksScreen> {
                     ),
                   ),
                   child: TodoListView(
-                    tasklist: TodoList.todoList,
+                    tasklist: todoList,
                   ),
                 ),
               ),
