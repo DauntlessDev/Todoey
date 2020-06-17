@@ -68,7 +68,7 @@ class _TasksScreenState extends State<TasksScreen> {
                                 fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            '12 Tasks',
+                            '${Provider.of<TodoList>(context).todoList.length} Tasks',
                             style: TextStyle(
                               color: Colors.grey[100],
                               fontSize: 14,
