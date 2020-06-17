@@ -19,4 +19,8 @@ class TodoList extends ChangeNotifier {
     task.toggleState();
     notifyListeners();
   }
+  void deleteTask(int index){
+    _todoList.removeAt(index);
+    notifyListeners();
+  }
 }

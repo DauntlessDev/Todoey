@@ -11,12 +11,16 @@ class TodoListView extends StatelessWidget {
         return ListView.builder(
           itemBuilder: (context, index) {
             final currentTask = taskData.todoList[index];
-            return CustomCheckBoxListTile(
-              isChecked: currentTask.isChecked,
-              title: currentTask.title,
-              callback: (bool checkBoxState) {
-                taskData.updateTask(currentTask);
-              },
+            return GestureDetector(
+              onHorizontalDragEnd: (yes) =>
+                  taskData.deleteTask(index),
+              child: CustomCheckBoxListTile(
+                isChecked: currentTask.isChecked,
+                title: currentTask.title,
+                callback: (bool checkBoxState) {
+                  taskData.updateTask(currentTask);
+                },
+              ),
             );
           },
           itemCount: taskData.taskCount,
