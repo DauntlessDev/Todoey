@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey_flutter/data/todolist.dart';
 
 String taskTitle;
 
 class TaskBottomSheet extends StatefulWidget {
-  TaskBottomSheet({@required this.callback});
-
-  final Function callback;
-
   @override
   _TaskBottomSheetState createState() => _TaskBottomSheetState();
 }
@@ -59,7 +57,7 @@ class _TaskBottomSheetState extends State<TaskBottomSheet> {
                   padding: EdgeInsets.all(20),
                   onPressed: () {
                     textEditingController.clear();
-                    widget.callback(taskTitle);
+                    Provider.of<TodoList>(context, listen: false).addTask(taskTitle);
                   },
                   child: Text(
                     'Add',

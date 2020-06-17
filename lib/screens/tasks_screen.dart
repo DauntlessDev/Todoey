@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todoey_flutter/components/taskbottomsheet.dart';
 import 'package:todoey_flutter/components/todo_listview.dart';
-import 'package:todoey_flutter/models/task.dart';
+import 'package:todoey_flutter/data/todolist.dart';
 
 class TasksScreen extends StatefulWidget {
   @override
@@ -9,13 +10,13 @@ class TasksScreen extends StatefulWidget {
 }
 
 class _TasksScreenState extends State<TasksScreen> {
-  List<Task> todoList = [];
+  // List<Task> todoList = [];
 
-  void addTask(String titleText) {
-    setState(() {
-      todoList.add(Task(title: titleText, isChecked: false));
-    });
-  }
+  // void addTask(String titleText) {
+  //   setState(() {
+  //     todoList.add(Task(title: titleText, isChecked: false));
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +27,7 @@ class _TasksScreenState extends State<TasksScreen> {
           onPressed: () {
             showModalBottomSheet(
               context: context,
-              builder: (context) => TaskBottomSheet(
-                callback: addTask,
-              ),
+              builder: (context) => TaskBottomSheet(),
             );
           },
           backgroundColor: Colors.blueAccent,
@@ -45,41 +44,39 @@ class _TasksScreenState extends State<TasksScreen> {
                 flex: 1,
                 child: Padding(
                   padding: const EdgeInsets.all(30.0),
-                  child: Flexible(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        CircleAvatar(
-                          backgroundColor: Colors.white,
-                          radius: 30,
-                          child: Icon(
-                            Icons.list,
-                            size: 40,
-                            color: Colors.blueAccent,
-                          ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 30,
+                        child: Icon(
+                          Icons.list,
+                          size: 40,
+                          color: Colors.blueAccent,
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Todoey',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 35,
-                                  fontWeight: FontWeight.bold),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Todoey',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 35,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            '12 Tasks',
+                            style: TextStyle(
+                              color: Colors.grey[100],
+                              fontSize: 14,
                             ),
-                            Text(
-                              '12 Tasks',
-                              style: TextStyle(
-                                color: Colors.grey[100],
-                                fontSize: 14,
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
+                          ),
+                        ],
+                      )
+                    ],
                   ),
                 ),
               ),
@@ -97,7 +94,7 @@ class _TasksScreenState extends State<TasksScreen> {
                     ),
                   ),
                   child: TodoListView(
-                    tasklist: todoList,
+                    tasklist: Provider.of<TodoList>(context).todoList,
                   ),
                 ),
               ),
