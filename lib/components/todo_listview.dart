@@ -1,30 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todoey_flutter/components/custom_checkbox_listtile.dart';
-import 'package:todoey_flutter/models/task.dart';
+import 'package:todoey_flutter/data/todolist.dart';
 
-class TodoListView extends StatefulWidget {
-  final List<Task> tasklist;
-  TodoListView({@required this.tasklist});
-  @override
-  _TodoListViewState createState() => _TodoListViewState();
-}
-
-class _TodoListViewState extends State<TodoListView> {
+class TodoListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (context, index) {
-        return CustomCheckBoxListTile(
-          isChecked: widget.tasklist[index].isChecked,
-          title: widget.tasklist[index].title,
-          callback: (bool checkBoxState) {
-            setState(() {
-              widget.tasklist[index].toggleState();
-            });
+    return Consumer<TodoList>(
+      builder: (context, taskData, child) {
+        return ListView.builder(
+          itemBuilder: (context, index) {
+            return CustomCheckBoxListTile(
+              isChecked: taskData.todoList[index].isChecked,
+              title: taskData.todoList[index].title,
+              callback: (bool checkBoxState) {
+                // setState(() {
+                //   // Provider.of<TodoList>(context).todoList[index].toggleState();
+                // });
+              },
+            );
           },
+          itemCount: taskData.taskCount,
         );
       },
-      itemCount: widget.tasklist.length,
     );
   }
 }

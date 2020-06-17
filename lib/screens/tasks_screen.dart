@@ -4,20 +4,7 @@ import 'package:todoey_flutter/components/taskbottomsheet.dart';
 import 'package:todoey_flutter/components/todo_listview.dart';
 import 'package:todoey_flutter/data/todolist.dart';
 
-class TasksScreen extends StatefulWidget {
-  @override
-  _TasksScreenState createState() => _TasksScreenState();
-}
-
-class _TasksScreenState extends State<TasksScreen> {
-  // List<Task> todoList = [];
-
-  // void addTask(String titleText) {
-  //   setState(() {
-  //     todoList.add(Task(title: titleText, isChecked: false));
-  //   });
-  // }
-
+class TasksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +55,7 @@ class _TasksScreenState extends State<TasksScreen> {
                                 fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            '${Provider.of<TodoList>(context).todoList.length} Tasks',
+                            '${Provider.of<TodoList>(context).taskCount} Tasks',
                             style: TextStyle(
                               color: Colors.grey[100],
                               fontSize: 14,
@@ -93,9 +80,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       Radius.circular(20),
                     ),
                   ),
-                  child: TodoListView(
-                    tasklist: Provider.of<TodoList>(context).todoList,
-                  ),
+                  child: TodoListView(),
                 ),
               ),
             ],
