@@ -1,13 +1,22 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:todoey_flutter/models/task.dart';
 
 class TodoList extends ChangeNotifier {
-  List<Task> todoList = [];
+  List<Task> _todoList = [];
 
   void addTask(String titleText) {
-    todoList.add(Task(title: titleText, isChecked: false));
+    _todoList.add(Task(title: titleText, isChecked: false));
     notifyListeners();
   }
 
-  int get taskCount => todoList.length;
+  UnmodifiableListView<Task> get todoList => UnmodifiableListView(_todoList);
+
+  int get taskCount => _todoList.length;
+
+  void updateTask(Task task){
+    task.toggleState();
+    notifyListeners();
+  }
 }

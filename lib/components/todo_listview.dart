@@ -10,13 +10,12 @@ class TodoListView extends StatelessWidget {
       builder: (context, taskData, child) {
         return ListView.builder(
           itemBuilder: (context, index) {
+            final currentTask = taskData.todoList[index];
             return CustomCheckBoxListTile(
-              isChecked: taskData.todoList[index].isChecked,
-              title: taskData.todoList[index].title,
+              isChecked: currentTask.isChecked,
+              title: currentTask.title,
               callback: (bool checkBoxState) {
-                // setState(() {
-                //   // Provider.of<TodoList>(context).todoList[index].toggleState();
-                // });
+                taskData.updateTask(currentTask);
               },
             );
           },

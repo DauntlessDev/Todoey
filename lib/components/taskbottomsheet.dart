@@ -4,14 +4,7 @@ import 'package:todoey_flutter/data/todolist.dart';
 
 String taskTitle;
 
-class TaskBottomSheet extends StatefulWidget {
-  @override
-  _TaskBottomSheetState createState() => _TaskBottomSheetState();
-}
-
-class _TaskBottomSheetState extends State<TaskBottomSheet> {
-  final textEditingController = TextEditingController();
-
+class TaskBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -34,7 +27,6 @@ class _TaskBottomSheetState extends State<TaskBottomSheet> {
                 ),
               ),
               TextField(
-                controller: textEditingController,
                 autofocus: true,
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
@@ -56,8 +48,9 @@ class _TaskBottomSheetState extends State<TaskBottomSheet> {
                   color: Colors.blueAccent,
                   padding: EdgeInsets.all(20),
                   onPressed: () {
-                    textEditingController.clear();
-                    Provider.of<TodoList>(context, listen: false).addTask(taskTitle);
+                    Provider.of<TodoList>(context, listen: false)
+                        .addTask(taskTitle);
+                    Navigator.pop(context);
                   },
                   child: Text(
                     'Add',
